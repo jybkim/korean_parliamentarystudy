@@ -5,8 +5,8 @@ account: jansez1311
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 2191220
-bundleId: 3069125
+bundleId: 3069518
 url: https://jansez1311.shinyapps.io/Korean_Parliament_Analysis/
-when: 1587945815.45761
+when: 1587953858.60103
 asMultiple: FALSE
 asStatic: FALSE
