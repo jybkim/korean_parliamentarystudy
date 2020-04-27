@@ -1,0 +1,16 @@
+
+# About the Project
+
+This project seeks to explore elections data on the National Assembly of the Republic of Korea from democratization in 1987 to the most recent election with data on file. The project runs from 1988 to 2016. I was first inspired to start this project because of my potential thesis project on regional voting behavior for National Assembly elections (which you can still see the different trends in the Single Member District tab). I have since changed to reflect this project to see if future elections can be predicted based on variables gathered for this data. 
+
+# Collection of Data
+
+Special thanks goes out to Prof. Kuniaki Nemoto of Musashi University, which I was able to utilize his comprehensive dataset to analyse election data. See [here](https://sites.google.com/site/knemoto1978/kuniakinemotocv) for more information about him and the data he has provided. See [here](https://github.com/jybkim/koreanparliament_datascraping) for the datascraping in action. 
+
+# About Me
+
+My name is Brian Kim, and I am a Harvard junior majoring in Government and East Asian Studies. You can reach me at [jkim4@college.harvard.edu](<mailto:jkim4@college.harvard.edu?subject=Korean Elections Analysis>). 
+
+
+You can find the Github repository for developing this specific Shiny website [here](https://github.com/jybkim/korean_parliamentarystudy). You can also find my general Github profile [here](https://github.com/jybkim/). 
+
