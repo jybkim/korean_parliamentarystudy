@@ -4,6 +4,7 @@ library(shinydashboard)
 library(shinythemes)
 library(plotly)
 library(gganimate)
+library(gifski)
 
 # load the PR and SMD data
 
@@ -40,8 +41,8 @@ ui <- navbarPage(theme = shinytheme("cerulean"),
                                              but the crux of voting by parties the same")),
                                     tags$li(h5("Independents are not considered since voting for parties
                                              only allowed in PR voting")),
-                                    tags$li(h5("Hover over the graph and zoom in to see exact details!"))),
-                                  plotlyOutput("PRinteractive", height = 650)
+                                    tags$li(h5("Animation shows the changes in PR voting behavior."))),
+                                  imageOutput("graphanimate_actual")
                               )
                               
                           )),
@@ -100,16 +101,25 @@ ui <- navbarPage(theme = shinytheme("cerulean"),
                                         growth that the country had experienced up until the mid 1990s, 
                                         and the conservative movement is often seen as the heir to 
                                         the government that reigned during the economic miracle."), 
-                                      p("The regression done here was between older populations in
-                                        Gyeonggi Province throughout different election 
-                                        years to see if such relationship is valid and holds true at least
-                                        in the aftermath of democratization in 1987."),
-                                      p("Reason for choosing Gyeonggi Province is now it is the largest
-                                        region in terms of total population, and shows good swing in 
-                                        presidential and gubernatorial elections."), 
-                                      p("For more certainty, additional variables could have definitely been 
+                                      p("The regression done here was between shares of older population in various
+                                      cities/provinces throughout different election years 
+                                      and overall vote share for different ideologies. Each point in the
+                                      scatter plot represents a specific city/province in various election
+                                      years, with multiple points for the same x-value to depict the 
+                                      difference in vote shares for different ideologies."),
+                                      p("Reason for not choosing a specific province or specific election year
+                                        was to demonstrate the consistency of 65+ voter behavior throughout
+                                        different elections."), 
+                                      p("For more certainty, additional variables could have been 
                                         provided to prove some relationship between population of seniors and
-                                        the average vote share in any given district and election year.")
+                                        the average vote share in any given district and election year. Specifically,
+                                        this model does not account for the potential variables that may change based
+                                        on the various election years this regression takes into factor. 
+                                        Wealth is also not taken into consideration, which may affect voting behavior
+                                        regardless of the age of voter."),
+                                      p("NOTE: Interaction regression table may not show liberal/progressives
+                                        because it is codified as 0 in a ternary variable, with 1 as conservatives
+                                        and 2 as independents.")
                                   ), 
                                   
                                   # add the mainPanel page
@@ -203,12 +213,15 @@ server <- function(input, output) {
     
     # output for the PR
 
-    output$PRinteractive <- renderPlotly({
+    output$graphanimate_actual <- renderImage({
+        filename <- file.path('data_files/graphanimate_actual.gif')
         
-        # display plot
+        # Return a list containing the filename and alt text
+        list(src = filename,
+             contentType = 'image/gif',
+             alt = 'Animation of PR vote in Korea')
         
-        ggplotly(PRinteractive)
-    })
+    }, deleteFile = FALSE)
 }
 
 # Run the application 

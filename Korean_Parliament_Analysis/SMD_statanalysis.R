@@ -9,6 +9,7 @@ library(ggthemes)
 library(plotly)
 
 # load the SMD party share data
+# NOTE: in the datascraping process, originally named as "SMD_oldandpartyshare.csv"
 
 oldandvote <- get(load("data_files/oldandvoteshare.Rdata"))
 
@@ -28,28 +29,22 @@ write_rds(oldandvote, path = "data_files/oldandvote.rds")
 # create ggplot with regression
 
 regressionplot <- oldandvote %>%
-  filter(region == "Gyeonggi") %>%
-  ggplot(aes(x = total_old, y = averagevoteshare, color = factor(cons_or_not))) + 
+  ggplot(aes(x = oldshare, y = averagevoteshare, color = factor(cons_or_not))) + 
   geom_jitter() + 
   geom_smooth(method = "lm", 
               formula = y ~ x, se = TRUE) + 
   labs(title = "Exploring Vote Shares by Old Population",
-       subtitle = "Regression Specified to Gyeonggi Province",
-       x = "Population of 65 and Older", 
+       x = "Shae of the Population of 65 and Older (%)", 
        y = "Percentage of Vote Share (%)", 
        color = "Party/Ideology Affiliation") + 
   theme_classic()
 
+regressionplot
 
 # create interaction table to account for cons_or_not factor
 
-# but first, filter for Gyeonggi province
-
-gyeonggi_oldandvote <- oldandvote %>%
-  filter(region == "Gyeonggi")
-
-interaction_model <- lm(data = gyeonggi_oldandvote, formula = 
-                         averagevoteshare ~ total_old*cons_or_not)
+interaction_model <- lm(data = oldandvote, formula = 
+                         averagevoteshare ~ oldshare*cons_or_not)
 
 # make gt table based off of this
 
@@ -78,6 +73,7 @@ interaction_gt <- interaction_model %>%
   tab_spanner(
     label = "Data from Kuniaki Nemoto",
     columns = vars(term, estimate, conf.low, conf.high))
+
 
 
 
